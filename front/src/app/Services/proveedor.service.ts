@@ -19,23 +19,23 @@ export class ProveedorService {
     return this.cliente.post<Iproveedor>(this.urlBase + 'uno', proveedores);
   }
   insertar(proveedor: Iproveedor): Observable<any> {
-    var prod = new FormData();
-    prod.append('nombres', proveedor.Nombres);
-    prod.append('telefono', proveedor.Telefono.toString());
-    prod.append('correo', proveedor.Correo.toString());
-    return this.cliente.post(this.urlBase + 'insertar', prod);
+    var prov = new FormData();
+    prov.append('nombres', proveedor.Nombres);
+    prov.append('telefono', proveedor.Telefono.toString());
+    prov.append('correo', proveedor.Correo.toString());
+    return this.cliente.post(this.urlBase + 'insertar', prov);
   }
   actualizar(proveedor: Iproveedor): Observable<any> {
-    var prod = new FormData();
-    prod.append('id', proveedor.ProveedorId.toString());
-    prod.append('nombres', proveedor.Nombres);
-    prod.append('telefono', proveedor.Telefono.toString());
-    prod.append('correo', proveedor.Correo.toString());
-    return this.cliente.post(this.urlBase + 'actualizar', prod);
+    var prov = new FormData();
+    prov.append('id', proveedor.ProveedorId.toString());
+    prov.append('nombres', proveedor.Nombres);
+    prov.append('telefono', proveedor.Telefono.toString());
+    prov.append('correo', proveedor.Correo.toString());
+    return this.cliente.post(this.urlBase + 'actualizar', prov);
   }
   eliminar(id: number): Observable<any> {
-    var prod = new FormData();
-    prod.append('id', id.toString());
-    return this.cliente.post(this.urlBase + 'eliminar', prod);
+    var prov = new FormData();
+    prov.append('id', id.toString());
+    return this.cliente.post(this.urlBase + 'eliminar', prov);
   }
 }
