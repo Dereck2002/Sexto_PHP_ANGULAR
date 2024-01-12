@@ -1,0 +1,66 @@
+<div class="card shadow mb-4">
+  <div class="card-header py-3">
+    <h6 class="m-0 font-weight-bold text-primary">{{ title }}</h6>
+  </div>
+  <div class="card-body">
+    <form [formGroup]="Stock" (ngSubmit)="grabar()">
+      <div class="mb-2">
+        <label for="ProductoID">Producto</label>
+        <input type="text" class="form-control" formControlName="ProductoID" />
+        @if (Stock.invalid && (Stock.dirty || Stock.touched)) {
+        <div class="alert">
+          @if (Stock.errors?.["required"]) {
+          <div class="ng-invalid">Producto es requerido</div>
+          }
+        </div>
+        }
+      </div>
+      <div class="mb-2">
+        <label for="ProveedorID">Proveedor</label>
+        <input type="text" class="form-control" formControlName="ProveedorID" />
+        @if (Stock.invalid && (Stock.dirty || Stock.touched)) {
+        <div class="alert">
+          @if (Stock.errors?.["required"]) {
+          <div class="ng-invalid">Provedor requerido</div>
+          }
+        </div>
+        }
+      </div>
+      <div class="mb-2">
+        <label for="cantidad">Cantidad</label>
+        <input type="text" class="form-control" formControlName="cantidad" />
+        @if (Stock.invalid && (Stock.dirty || Stock.touched)) {
+        <div class="alert">
+          @if (Stock.errors?.["required"]) {
+          <div class="ng-invalid">Cantidad requerido</div>
+          }
+        </div>
+        }
+      </div>
+      <div class="mb-2">
+        <label for="Pecio_Venta">Precio de Venta</label>
+        <input type="text" class="form-control" formControlName="Pecio_Venta" />
+        @if (Stock.invalid && (Stock.dirty || Stock.touched)) {
+        <div class="alert">
+          @if (Stock.errors?.["required"]) {
+          <div class="ng-invalid">Precio de Venta es</div>
+          }
+        </div>
+      }
+    </div>
+
+      <div class="mb-2">
+        <button
+          type="submit"
+          class="btn btn-primary"
+          [disabled]="!Stock.valid"
+        >
+          Grabar
+        </button>
+        <button class="btn btn-secondary" routerLink="/Stock">
+          Cancelar
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

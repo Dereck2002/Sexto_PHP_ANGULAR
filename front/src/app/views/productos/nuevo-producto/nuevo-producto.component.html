@@ -1,0 +1,68 @@
+<div class="card shadow mb-4">
+  <div class="card-header py-3">
+    <h6 class="m-0 font-weight-bold text-primary">{{ title }}</h6>
+  </div>
+  <div class="card-body">
+    <form [formGroup]="productos" (ngSubmit)="grabar()">
+      <div class="mb-2">
+        <label for="Nombre">Nombre</label>
+        <input type="text" class="form-control" formControlName="Nombre" />
+        @if (productos.invalid && (productos.dirty || productos.touched)) {
+        <div class="alert">
+          @if (productos.errors?.["required"]) {
+          <div class="ng-invalid">Nombre es requerido</div>
+          }
+        </div>
+        }
+      </div>
+      <div class="mb-2">
+        <label for="Precio">Precio</label>
+        <input type="text" class="form-control" formControlName="Precio" />
+        @if (productos.invalid && (productos.dirty || productos.touched)) {
+        <div class="alert">
+          @if (productos.errors?.["required"]) {
+          <div class="ng-invalid">El precio es requerido</div>
+
+          }
+        </div>
+        }
+      </div>
+      <div class="mb-2">
+        <label for="Cantidad">Cantidad</label>
+        <input type="email" class="form-control" formControlName="Cantidad" />
+        @if (productos.invalid && (productos.dirty || productos.touched)) {
+        <div class="alert">
+          @if (productos.errors?.["required"]) {
+          <div class="ng-invalid">la cantidad es requerido</div>
+          }
+        </div>
+        }
+      </div>
+      <div class="mb-2">
+        <label for="FechaIngreso">Fecha de Ingreso</label>
+        <input type="text" class="form-control" formControlName="FechaIngreso" />
+        @if (productos.invalid && (productos.dirty || productos.touched)) {
+        <div class="alert">
+          @if (productos.errors?.["required"]) {
+          <div class="ng-invalid">Fecha de Ingreso es </div>
+          }
+        </div>
+      }
+    </div>
+   
+
+      <div class="mb-2">
+        <button
+          type="submit"
+          class="btn btn-primary"
+          [disabled]="!productos.valid"
+        >
+          Grabar
+        </button>
+        <button class="btn btn-secondary" routerLink="/producto">
+          Cancelar
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

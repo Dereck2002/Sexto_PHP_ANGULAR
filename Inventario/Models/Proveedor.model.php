@@ -21,7 +21,8 @@ class Clase_Proveedor
         try {
             $con = new Clase_Conectar_Base_Datos();
             $con = $con->ProcedimientoConectar();
-            $cadena = "SELECT * FROM `Proveedor` WHERE ProveedorId=$ProveedorId";
+            $cadena = "SELECT * FROM `Proveedores` WHERE ProveedorId=$ProveedorId";
+
             $result = mysqli_query($con, $cadena);
             return $result;
         } catch (Throwable $th) {
@@ -35,7 +36,8 @@ class Clase_Proveedor
         try {
             $con = new Clase_Conectar_Base_Datos();
             $con = $con->ProcedimientoConectar();
-            $cadena = "INSERT INTO `Proveedores`( `Nombre`, `Telefono`, `Correo`) VALUES ('$Nombre','$Telefono',$Correo)";
+            $cadena = "INSERT INTO `Proveedores`( `Nombres`, `Telefono`, `Correo`) VALUES ('$Nombre','$Telefono','$Correo')";
+
             $result = mysqli_query($con, $cadena);
             return 'ok';
         } catch (Throwable $th) {
@@ -49,7 +51,7 @@ class Clase_Proveedor
         try {
             $con = new Clase_Conectar_Base_Datos();
             $con = $con->ProcedimientoConectar();
-            $cadena = "UPDATE `Proveedores` SET `Nombre`='$Nombre',`Telefono`='$Telefono',`Correo`='$Correo' WHERE `ProveedorId`=$ProveedorId";
+            $cadena = "UPDATE `Proveedores` SET `Nombres`='$Nombre',`Telefono`='$Telefono',`Correo`='$Correo' WHERE `ProveedorId`=$ProveedorId";
             $result = mysqli_query($con, $cadena);
             return "ok";
         } catch (Throwable $th) {
@@ -73,3 +75,13 @@ class Clase_Proveedor
         }
     }
 }
+/*
+
+"SELECT * FROM `Proveedor` WHERE ProveedorId=4<br />
+<b>Fatal error</b>:  Uncaught TypeError: mysqli_fetch_assoc(): Argument #1 ($result) must be of type mysqli_result, string given in /Applications/MAMP/htdocs/Sexto_PHP_ANGULAR/Inventario/Controllers/Proveedor.Controller.php:27
+Stack trace:
+#0 /Applications/MAMP/htdocs/Sexto_PHP_ANGULAR/Inventario/Controllers/Proveedor.Controller.php(27): mysqli_fetch_assoc('Table 'inventar...')
+#1 {main}
+  thrown in <b>/Applications/MAMP/htdocs/Sexto_PHP_ANGULAR/Inventario/Controllers/Proveedor.Controller.php</b> on line <b>27</b><br />
+"
+*/

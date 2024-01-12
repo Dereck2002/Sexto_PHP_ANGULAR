@@ -1,32 +1,25 @@
-import { Component, OnInit } from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
-
-import { IconSetService } from '@coreui/icons-angular';
-import { iconSubset } from './icons/icon-subset';
-import { Title } from '@angular/platform-browser';
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { HeaderComponent } from './Views/html/header/header.component';
+import { MenuComponent } from './Views/html/menu/menu.component';
+import { FooterComponent } from './Views/html/footer/footer.component';
 
 @Component({
   selector: 'app-root',
-  template: '<router-outlet></router-outlet>',
+  standalone: true,
+  imports: [
+    CommonModule,
+    RouterOutlet,
+    HeaderComponent,
+    MenuComponent,
+    FooterComponent,
+    RouterLink,
+    RouterLinkActive,
+  ],
+  templateUrl: './app.component.html',
+  styleUrl: './app.component.css',
 })
-export class AppComponent implements OnInit {
-  title = 'CoreUI Free Angular Admin Template';
-
-  constructor(
-    private router: Router,
-    private titleService: Title,
-    private iconSetService: IconSetService
-  ) {
-    titleService.setTitle(this.title);
-    // iconSet singleton
-    iconSetService.icons = { ...iconSubset };
-  }
-
-  ngOnInit(): void {
-    this.router.events.subscribe((evt) => {
-      if (!(evt instanceof NavigationEnd)) {
-        return;
-      }
-    });
-  }
+export class AppComponent {
+  title = 'Inventarios';
 }

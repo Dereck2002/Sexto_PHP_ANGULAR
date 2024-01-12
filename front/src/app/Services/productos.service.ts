@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { IProductos } from '../Interface/iproductos';
+import { IProducto } from '../Interfaces/iproducto';
 
 @Injectable({
   providedIn: 'root',
@@ -11,21 +11,21 @@ export class ProductosService {
     'http://localhost/Sexto_PHP_ANGULAR/Inventario/Controllers/Producto.Controller.php?op=';
   constructor(private cliente: HttpClient) {}
 
-  todos(): Observable<IProductos[]> {
-    return this.cliente.get<IProductos[]>(this.urlBase + 'todos');
+  todos(): Observable<IProducto[]> {
+    return this.cliente.get<IProducto[]>(this.urlBase + 'todos');
   }
-  uno(id: number): Observable<IProductos> {
+  uno(id: number): Observable<IProducto> {
     var productos = new FormData();
-    return this.cliente.post<IProductos>(this.urlBase + 'uno', productos);
+    return this.cliente.post<IProducto>(this.urlBase + 'uno', productos);
   }
-  insertar(producto: IProductos): Observable<any> {
+  insertar(producto: IProducto): Observable<any> {
     var prod = new FormData();
     prod.append('nombre', producto.Nombre);
     prod.append('precio', producto.Precio.toString());
     prod.append('stock', producto.Cantidad.toString());
     return this.cliente.post(this.urlBase + 'insertar', prod);
   }
-  actualizar(producto: IProductos): Observable<any> {
+  actualizar(producto: IProducto): Observable<any> {
     var prod = new FormData();
     prod.append('id', producto.ProductoId.toString());
     prod.append('nombre', producto.Nombre);
