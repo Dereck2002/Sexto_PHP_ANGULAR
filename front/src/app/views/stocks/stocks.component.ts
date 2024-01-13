@@ -1,37 +1,37 @@
 import { Component } from '@angular/core';
-import { IStock } from '../../Interfaces/istock';
+import { IStock} from '../../Interfaces/istock';
 import { StockService } from '../../Services/stock.service';
 import { RouterLink } from '@angular/router';
 import Swal from 'sweetalert2';
 @Component({
-  selector: 'app-stocks',
+  selector: 'app-stoks',
   standalone: true,
   imports: [RouterLink],
   templateUrl: './stocks.component.html',
   styleUrl: './stocks.component.css',
 })
-export class StockComponent {
-  title = 'Stock';
-  stock: IStock[];
+export class StocksComponent {
+  title = 'Stocks';
+  stocks: IStock[];
 
-  constructor(private stockServicio: StockService) {}
+  constructor(private stocksServicio: StockService) {}
 
   ngOnInit() {
     this.cargaTabla();
   }
   cargaTabla() {
-    this.stockServicio.todos().subscribe((listastock) => {
-      this.stock = listastock;
-      console.log(listastock);
+    this.stocksServicio.todos().subscribe((listastocks) => {
+      this.stocks = listastocks;
+      console.log(listastocks);
     });
   }
   alerta() {
-    Swal.fire('Stock', 'Mensaje en Stock', 'success');
+    Swal.fire('Stocks', 'Mensaje en Stock', 'success');
   }
 
   eliminar(StockId: number) {
     Swal.fire({
-      title: 'Stock',
+      title: 'Stocks',
       text: 'Esta seguro que desea eliminar el registro',
       icon: 'warning',
       showCancelButton: true,
@@ -40,17 +40,17 @@ export class StockComponent {
       confirmButtonText: 'Eliminar',
     }).then((result) => {
       if (result.isConfirmed) {
-        this.stockServicio.eliminar(StockId).subscribe((datos) => {
+        this.stocksServicio.eliminar(StockId).subscribe((datos) => {
           this.cargaTabla();
           Swal.fire({
-            title: 'Stock',
+            title: 'Stocks',
             text: 'Se eliminó con éxito el registro',
             icon: 'success',
           });
         });
       } else {
         Swal.fire({
-          title: 'Stock',
+          title: 'PStocks',
           text: 'El usuario canceló la acción',
           icon: 'info',
         });

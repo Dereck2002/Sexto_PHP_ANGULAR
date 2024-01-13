@@ -27,7 +27,7 @@ export class NuevoStockComponent {
     Precio_Venta: new FormControl('', Validators.required),
   });
   constructor(
-    private StockServicio: StockService,
+    private stockServicio: StockService,
     private rutas: Router,
     private parametros: ActivatedRoute
   ) {}
@@ -36,10 +36,10 @@ export class NuevoStockComponent {
     this.id = this.parametros.snapshot.params['id'];
     console.log(this.id);
     if (this.id == 0 || this.id == undefined) {
-      this.title = 'Nuevo Stock';
+      this.title = 'Nuevo stock';
     } else {
-      this.title = 'Actualizar Stock';
-      this.StockServicio.uno(this.id).subscribe((res) => {
+      this.title = 'Actualizar stock';
+      this.stockServicio.uno(this.id).subscribe((res) => {
         console.log(res);
         this.Stock.patchValue({
           ProductoId: res.ProductoId,
@@ -56,7 +56,7 @@ export class NuevoStockComponent {
 
   grabar() {
     Swal.fire({
-      title: 'Stock',
+      title: 'Stocks',
       text: 'Esta seguro que desea guardar el registro',
       icon: 'warning',
       showCancelButton: true,
@@ -66,11 +66,11 @@ export class NuevoStockComponent {
     }).then((result) => {
       if (result.isConfirmed) {
         if (this.id == 0 || this.id == undefined) {
-          this.StockServicio
+          this.stockServicio
             .insertar(this.Stock.value)
             .subscribe((res) => {
               Swal.fire({
-                title: 'Stock',
+                title: 'stocks',
                 text: 'Se insertó con éxito el registro',
                 icon: 'success',
               });
@@ -78,11 +78,11 @@ export class NuevoStockComponent {
               this.id = 0;
             });
         } else {
-          this.StockServicio
+          this.stockServicio
             .actualizar(this.Stock.value, this.id)
             .subscribe((res) => {
               Swal.fire({
-                title: 'Stock',
+                title: 'Stocks',
                 text: 'Se actualizó con éxito el registro',
                 icon: 'success',
               });

@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { IProducto } from '../Interfaces/iproducto';
 
@@ -9,33 +9,33 @@ import { IProducto } from '../Interfaces/iproducto';
 export class ProductosService {
   private urlBase: string =
     'http://localhost/Sexto_PHP_ANGULAR/Inventario/Controllers/Producto.Controller.php?op=';
-  constructor(private cliente: HttpClient) {}
-
+    constructor(private clientePhp: HttpClient) {}
   todos(): Observable<IProducto[]> {
-    return this.cliente.get<IProducto[]>(this.urlBase + 'todos');
+    return this.clientePhp.get<IProducto[]>(this.urlBase + 'todos');
   }
-  uno(id: number): Observable<IProducto> {
-    var productos = new FormData();
-    return this.cliente.post<IProducto>(this.urlBase + 'uno', productos);
-  }
-  insertar(producto: IProducto): Observable<any> {
-    var prod = new FormData();
-    prod.append('nombre', producto.Nombre);
-    prod.append('precio', producto.Precio.toString());
-    prod.append('stock', producto.Cantidad.toString());
-    return this.cliente.post(this.urlBase + 'insertar', prod);
-  }
-  actualizar(producto: IProducto): Observable<any> {
-    var prod = new FormData();
-    prod.append('id', producto.ProductoId.toString());
-    prod.append('nombre', producto.Nombre);
-    prod.append('precio', producto.Precio.toString());
-    prod.append('stock', producto.Cantidad.toString());
-    return this.cliente.post(this.urlBase + 'actualizar', prod);
+  insertar(productos: IProducto): Observable<any> {
+    var prov = new FormData();
+    prov.append('nombre', productos.Nombre);
+      prov.append('precio', productos.Precio.toString());
+      prov.append('stock', productos.Cantidad.toString());
+      return this.clientePhp.post(this.urlBase + 'insertar', prov);
   }
   eliminar(id: number): Observable<any> {
-    var prod = new FormData();
-    prod.append('id', id.toString());
-    return this.cliente.post(this.urlBase + 'eliminar', prod);
+    var prov = new FormData();
+    prov.append('ProductoId', id.toString());
+    return this.clientePhp.post(this.urlBase + 'eliminar', prov);
+  }
+  uno(id: number): Observable<IProducto> {
+    var prov = new FormData();
+    prov.append('ProductoId', id.toString());
+    return this.clientePhp.post<IProducto>(this.urlBase + 'uno', prov);
+  }
+  actualizar(productos: IProducto, id: number): Observable<any> {
+    var prov = new FormData();
+    prov.append('proveedorId', id.toString());
+    prov.append('nombre', productos.Nombre);
+      prov.append('precio', productos.Precio.toString());
+      prov.append('stock', productos.Cantidad.toString());
+      return this.clientePhp.post(this.urlBase + 'insertar', prov);
   }
 }
