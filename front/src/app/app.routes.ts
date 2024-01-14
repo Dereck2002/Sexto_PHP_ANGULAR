@@ -6,6 +6,7 @@ import { PageNotFoundComponentComponent } from './page-not-found-component/page-
 import { ProveedoresComponent } from './Views/proveedores/proveedores.component';
 import { StocksComponent } from './Views/stocks/stocks.component';
 import { NuevoProveedorComponent } from './Views/proveedores/nuevo-proveedor/nuevo-proveedor.component';
+import { NuevoProductoComponent } from './views/productos/nuevo-producto/nuevo-producto.component';
 
 export const routes: Routes = [
   {
@@ -13,7 +14,14 @@ export const routes: Routes = [
     component: DashboardComponent,
   },
   { path: 'productos', component: ProductosComponent },
-
+  {
+    path: 'nuevo-producto',
+    component: NuevoProductoComponent,
+  },
+  {
+    path: 'editar-producto/:id',
+    component: NuevoProductoComponent,
+  },
   {
     path: 'proveedores',
     component: ProveedoresComponent,
