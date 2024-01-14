@@ -19,21 +19,21 @@ export class StockService {
     return this.cliente.post<IStock>(this.urlBase + 'uno', stock);
   }
   insertar(stock: IStock): Observable<any> {
-    var prod = new FormData();
-    prod.append('cantidad', stock.Cantidad.toString());
-    prod.append('precio_Venta', stock.Precio_Venta.toString());
-    return this.cliente.post(this.urlBase + 'insertar', prod);
+    var prov = new FormData();
+    prov.append('cantidad', stock.Cantidad.toString());
+    prov.append('precio_Venta', stock.Precio_Venta.toString());
+    return this.cliente.post(this.urlBase + 'insertar', prov);
   }
   actualizar(stock: IStock): Observable<any> {
-    var prod = new FormData();
-    prod.append('id', stock.StockId.toString());
-    prod.append('cantidad', stock.Cantidad.toString());
-    prod.append('precio_Venta', stock.Precio_Venta.toString());
-    return this.cliente.post(this.urlBase + 'actualizar', prod);
+    var prov = new FormData();
+    prov.append('id', stock.StockId.toString());
+    prov.append('cantidad', stock.Cantidad.toString());
+    prov.append('precio_Venta', stock.Precio_Venta.toString());
+    return this.cliente.post(this.urlBase + 'actualizar', prov);
   }
   eliminar(id: number): Observable<any> {
-    var prod = new FormData();
-    prod.append('id', id.toString());
-    return this.cliente.post(this.urlBase + 'eliminar', prod);
+    var prov = new FormData();
+    prov.append('id', id.toString());
+    return this.cliente.post(this.urlBase + 'eliminar', prov);
   }
 }
