@@ -6,7 +6,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { StocksService } from '../../../Services/stock.service';
+import { StockService } from '../../../Services/stock.service';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import Swal from 'sweetalert2';
 @Component({
@@ -28,7 +28,7 @@ export class NuevoStockComponent {
     
   });
   constructor(
-    private stocksServicio: StocksService,
+    private stocksServicio: StockService,
     private rutas: Router,
     private parametros: ActivatedRoute
   ) {}

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IStock } from '../../Interfaces/istock';
-import { StocksService } from '../../Services/stock.service';
+import { StockService } from '../../Services/stock.service';
 import { RouterLink } from '@angular/router';
 import Swal from 'sweetalert2';
 @Component({
@@ -10,11 +10,11 @@ import Swal from 'sweetalert2';
   templateUrl: './stocks.component.html',
   styleUrl: './stocks.component.css',
 })
-export class StocksComponent {
+export class StockComponent {
   title = 'Stocks';
   stocks: IStock[];
 
-  constructor(private stocksServicio: StocksService) {}
+  constructor(private stocksServicio: StockService) {}
 
   ngOnInit() {
     this.cargaTabla();

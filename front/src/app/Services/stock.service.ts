@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 @Injectable({
     providedIn: 'root'
   })
-  export class StocksService {
+  export class StockService {
    private urlBase:String = 
    'http://localhost/Sexto_PHP_ANGULAR/Inventario/Controllers/Stock.Controller.php?op=';
     constructor(private clientePhp:HttpClient) {}
