@@ -1,4 +1,3 @@
-<p>stocks works!</p>
 <div class="card shadow mb-4">
     <div class="card-header py-3">
       <h6 class="m-0 font-weight-bold text-primary">{{ title }}</h6>
@@ -20,6 +19,7 @@
               <th>ProveedorId</th>
               <th>Cantidad</th>
               <th>Precio_Venta</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
@@ -35,7 +35,7 @@
                 <button
                   type="button"
                   class="btn btn-outline-warning"
-                  routerLink="/editar-stocks/{{ stock.StockId }}"
+                  routerLink="/editar-stock/{{ stock.StockId }}"
                 >
                   Editar
                 </button>

@@ -7,6 +7,7 @@ class Clase_Stock
         try {
             $con = new Clase_Conectar_Base_Datos();
             $con = $con->ProcedimientoConectar();
+
             $cadena = "SELECT * FROM `Stocks`";
             $result = mysqli_query($con, $cadena);
             return $result;
@@ -35,7 +36,7 @@ class Clase_Stock
         try {
             $con = new Clase_Conectar_Base_Datos();
             $con = $con->ProcedimientoConectar();
-            $cadena = "INSERT INTO `Stocks`( `ProductoId`, `ProveedorId`, `Cantidad`, `Precio_Venta`) VALUES ('$ProductoId','$ProveedorId',$Cantidad,'$Precio_Venta')";
+            $cadena = "INSERT INTO `Stocks`( `ProductoId`, `ProveedorId`, `Cantidad`, `Precio_Venta`) VALUES ('$ProductoId','$ProveedorId','$Cantidad','$Precio_Venta')";
             $result = mysqli_query($con, $cadena);
             return 'ok';
         } catch (Throwable $th) {

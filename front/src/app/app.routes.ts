@@ -6,7 +6,9 @@ import { PageNotFoundComponentComponent } from './page-not-found-component/page-
 import { ProveedoresComponent } from './Views/proveedores/proveedores.component';
 import { StocksComponent } from './Views/stocks/stocks.component';
 import { NuevoProveedorComponent } from './Views/proveedores/nuevo-proveedor/nuevo-proveedor.component';
-import { NuevoProductoComponent } from './views/productos/nuevo-producto/nuevo-producto.component';
+import { NuevoStockComponent } from './Views/stocks/nuevo-stock/nuevo-stock.component';
+import { NuevoProductoComponent } from './Views/productos/nuevo-producto/nuevo-producto.component';
+
 
 export const routes: Routes = [
   {
@@ -14,14 +16,7 @@ export const routes: Routes = [
     component: DashboardComponent,
   },
   { path: 'productos', component: ProductosComponent },
-  {
-    path: 'nuevo-producto',
-    component: NuevoProductoComponent,
-  },
-  {
-    path: 'editar-producto/:id',
-    component: NuevoProductoComponent,
-  },
+
   {
     path: 'proveedores',
     component: ProveedoresComponent,
@@ -31,8 +26,24 @@ export const routes: Routes = [
     component: NuevoProveedorComponent,
   },
   {
+    path: 'nuevo-stock',
+    component: NuevoStockComponent,
+  },
+  {
+    path: 'nuevo-producto',
+    component: NuevoProductoComponent,
+  },
+  {
     path: 'editar-proveedor/:id',
     component: NuevoProveedorComponent,
+  },
+  {
+    path: 'editar-stock/:id',
+    component: NuevoStockComponent,
+  },
+  {
+    path: 'editar-producto/:id',
+    component: NuevoProductoComponent,
   },
   {
     path: 'stocks',

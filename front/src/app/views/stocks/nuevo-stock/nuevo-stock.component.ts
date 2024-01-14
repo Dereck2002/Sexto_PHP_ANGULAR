@@ -6,7 +6,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { StockService } from '../../../Services/stock.service';
+import { StocksService } from '../../../Services/stock.service';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import Swal from 'sweetalert2';
 @Component({
@@ -14,20 +14,21 @@ import Swal from 'sweetalert2';
   standalone: true,
   imports: [ReactiveFormsModule, CommonModule, RouterLink],
   templateUrl: './nuevo-stock.component.html',
-  styleUrl: './nuevo-stock.component.css',
+  styleUrl: './nuevo-stock.component.css'
 })
 export class NuevoStockComponent {
   title = '';
   id!: number;
 
-  Stock: FormGroup = new FormGroup({
+  provedor: FormGroup = new FormGroup({
     ProductoId: new FormControl('', Validators.required),
     ProveedorId: new FormControl('', Validators.required),
     Cantidad: new FormControl('', Validators.required),
     Precio_Venta: new FormControl('', Validators.required),
+    
   });
   constructor(
-    private stockServicio: StockService,
+    private stocksServicio: StocksService,
     private rutas: Router,
     private parametros: ActivatedRoute
   ) {}
@@ -39,9 +40,9 @@ export class NuevoStockComponent {
       this.title = 'Nuevo stock';
     } else {
       this.title = 'Actualizar stock';
-      this.stockServicio.uno(this.id).subscribe((res) => {
+      this.stocksServicio.uno(this.id).subscribe((res) => {
         console.log(res);
-        this.Stock.patchValue({
+        this.provedor.patchValue({
           ProductoId: res.ProductoId,
           ProveedorId: res.ProveedorId,
           Cantidad: res.Cantidad,
@@ -51,12 +52,12 @@ export class NuevoStockComponent {
     }
   }
   get f() {
-    return this.Stock.controls;
+    return this.provedor.controls;
   }
 
   grabar() {
     Swal.fire({
-      title: 'Stocks',
+      title: 'stocks',
       text: 'Esta seguro que desea guardar el registro',
       icon: 'warning',
       showCancelButton: true,
@@ -66,8 +67,8 @@ export class NuevoStockComponent {
     }).then((result) => {
       if (result.isConfirmed) {
         if (this.id == 0 || this.id == undefined) {
-          this.stockServicio
-            .insertar(this.Stock.value)
+          this.stocksServicio
+            .insertar(this.provedor.value)
             .subscribe((res) => {
               Swal.fire({
                 title: 'stocks',
@@ -78,11 +79,11 @@ export class NuevoStockComponent {
               this.id = 0;
             });
         } else {
-          this.stockServicio
-            .actualizar(this.Stock.value, this.id)
+          this.stocksServicio
+            .actualizar(this.provedor.value, this.id)
             .subscribe((res) => {
               Swal.fire({
-                title: 'Stocks',
+                title: 'stocks',
                 text: 'Se actualizó con éxito el registro',
                 icon: 'success',
               });
@@ -92,7 +93,7 @@ export class NuevoStockComponent {
         }
       } else {
         Swal.fire({
-          title: 'Stocks',
+          title: 'stocks',
           text: 'El usuario canceló la acción',
           icon: 'info',
         });

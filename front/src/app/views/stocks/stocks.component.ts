@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { IStock} from '../../Interfaces/istock';
-import { StockService } from '../../Services/stock.service';
+import { IStock } from '../../Interfaces/istock';
+import { StocksService } from '../../Services/stock.service';
 import { RouterLink } from '@angular/router';
 import Swal from 'sweetalert2';
 @Component({
-  selector: 'app-stoks',
+  selector: 'app-stocks',
   standalone: true,
   imports: [RouterLink],
   templateUrl: './stocks.component.html',
@@ -14,7 +14,7 @@ export class StocksComponent {
   title = 'Stocks';
   stocks: IStock[];
 
-  constructor(private stocksServicio: StockService) {}
+  constructor(private stocksServicio: StocksService) {}
 
   ngOnInit() {
     this.cargaTabla();
@@ -26,7 +26,7 @@ export class StocksComponent {
     });
   }
   alerta() {
-    Swal.fire('Stocks', 'Mensaje en Stock', 'success');
+    Swal.fire('Stocks', 'Mensaje en stocks', 'success');
   }
 
   eliminar(StockId: number) {
@@ -50,7 +50,7 @@ export class StocksComponent {
         });
       } else {
         Swal.fire({
-          title: 'PStocks',
+          title: 'Stocks',
           text: 'El usuario canceló la acción',
           icon: 'info',
         });

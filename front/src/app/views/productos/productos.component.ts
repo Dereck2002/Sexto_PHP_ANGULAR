@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
 import { IProducto } from '../../Interfaces/iproducto';
 import { ProductosService } from '../../Services/productos.service';
-import { RouterLink } from '@angular/router';
+import { ReactiveFormsModule } from '@angular/forms';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 import Swal from 'sweetalert2';
 @Component({
   selector: 'app-productos',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, RouterLinkActive, ReactiveFormsModule],
   templateUrl: './productos.component.html',
   styleUrl: './productos.component.css',
 })
@@ -43,7 +44,7 @@ export class ProductosComponent {
         this.productosServicio.eliminar(ProductoId).subscribe((datos) => {
           this.cargaTabla();
           Swal.fire({
-            title: 'Producto',
+            title: 'Productos',
             text: 'Se eliminó con éxito el registro',
             icon: 'success',
           });

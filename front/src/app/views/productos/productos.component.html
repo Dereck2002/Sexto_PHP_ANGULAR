@@ -1,4 +1,3 @@
-<p>productos works!</p> 
 <div class="card shadow mb-4">
     <div class="card-header py-3">
       <h6 class="m-0 font-weight-bold text-primary">{{ title }}</h6>
@@ -19,31 +18,31 @@
               <th>Nombre</th>
               <th>Precio</th>
               <th>Cantidad</th>
-              <th>FechaIngreso</th>
+              <th>Fecha</th>
               <th></th>
             </tr>
           </thead>
           <tbody>
-            @for (productos of productos; track productos.ProductoId; let i =
+            @for (producto of productos; track producto.ProductoId; let i =
             $index) {
             <tr>
               <td>{{ i + 1 }}</td>
-              <td>{{ productos.Nombre }}</td>
-              <td>{{ productos.Precio }}</td>
-              <td>{{ productos.Cantidad }}</td>
-              <td>{{ productos.FechaIngreso }}</td>
+              <td>{{ producto.Nombre }}</td>
+              <td>{{ producto.Precio }}</td>
+              <td>{{ producto.Cantidad }}</td>
+              <td>{{ producto.FechaIngreso }}</td>
               <td>
                 <button
                   type="button"
                   class="btn btn-outline-warning"
-                  routerLink="/editar-producto/{{ productos.ProductoId }}"
+                  routerLink="/editar-producto/{{ producto.ProductoId }}"
                 >
                   Editar
                 </button>
                 <button
                   type="button"
                   class="btn btn-outline-danger"
-                  (click)="eliminar(productos.ProductoId)"
+                  (click)="eliminar(producto.ProductoId)"
                 >
                   Eliminar
                 </button>
