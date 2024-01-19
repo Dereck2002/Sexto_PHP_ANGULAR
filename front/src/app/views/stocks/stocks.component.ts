@@ -1,103 +1,61 @@
-import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import {
-  FormControl,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
-import { StockService } from '../../../Services/stock.service';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import Swal from 'sweetalert2';
-@Component({
-  selector: 'app-nuevo-stock',
-  standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, RouterLink],
-  templateUrl: './nuevo-stock.component.html',
-  styleUrl: './nuevo-stock.component.css'
-})
-export class StockComponent{
-  title = '';
-  id!: number;
+import { IStock } from '../../Interfaces/istock';
+import { StockService } from '../../Services/stock.service';
+import { RouterLink } from '@angular/router';
 
-  provedor: FormGroup = new FormGroup({
-    ProductoId: new FormControl('', Validators.required),
-    ProveedorId: new FormControl('', Validators.required),
-    Cantidad: new FormControl('', Validators.required),
-    Precio_Venta: new FormControl('', Validators.required),
-    
-  });
-  constructor(
-    private stocksServicio: StockService,
-    private rutas: Router,
-    private parametros: ActivatedRoute
-  ) {}
+@Component({
+  selector: 'app-stocks',
+  standalone: true,
+  imports: [RouterLink],
+  templateUrl: './stocks.component.html',
+  styleUrl: './stocks.component.css',
+})
+export class StocksComponent {
+  title = 'Stocks';
+  stocks: IStock[];
+
+  constructor(private stocksServicio: StockService) {}
 
   ngOnInit() {
-    this.id = this.parametros.snapshot.params['id'];
-    console.log(this.id);
-    if (this.id == 0 || this.id == undefined) {
-      this.title = 'Nuevo stock';
-    } else {
-      this.title = 'Actualizar stock';
-      this.stockServicio.uno(this.id).subscribe((res) => {
-        console.log(res);
-        this.provedor.patchValue({
-          ProductoId: res.ProductoId,
-          ProveedorId: res.ProveedorId,
-          Cantidad: res.Cantidad,
-          Precio_Venta: res.Precio_Venta,
-        });
-      });
-    }
+    this.cargaTabla();
   }
-  get f() {
-    return this.provedor.controls;
+  cargaTabla() {
+    this.stocksServicio.todos().subscribe((listastocks) => {
+      this.stocks = listastocks;
+      console.log(listastocks);
+    });
+  }
+  alerta() {
+    Swal.fire('Stocks', 'Mensaje en Stocks', 'success');
   }
 
-  grabar() {
+  eliminar(StockId: number) {
     Swal.fire({
-      title: 'stocks',
-      text: 'Esta seguro que desea guardar el registro',
+      title: 'Stocks',
+      text: 'Esta seguro que desea eliminar el registro',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#d33',
       cancelButtonColor: '#3085d6',
-      confirmButtonText: 'Guardar',
+      confirmButtonText: 'Eliminar',
     }).then((result) => {
       if (result.isConfirmed) {
-        if (this.id == 0 || this.id == undefined) {
-          this.stocksServicio
-            .insertar(this.provedor.value)
-            .subscribe((res) => {
-              Swal.fire({
-                title: 'stocks',
-                text: 'Se insertó con éxito el registro',
-                icon: 'success',
-              });
-              this.rutas.navigate(['/stocks']);
-              this.id = 0;
-            });
-        } else {
-          this.stocksServicio
-            .actualizar(this.provedor.value, this.id)
-            .subscribe((res) => {
-              Swal.fire({
-                title: 'stocks',
-                text: 'Se actualizó con éxito el registro',
-                icon: 'success',
-              });
-              this.rutas.navigate(['/stocks']);
-              this.id = 0;
-            });
-        }
+        this.stocksServicio.eliminar(StockId).subscribe((datos) => {
+          this.cargaTabla();
+          Swal.fire({
+            title: 'Stocks',
+            text: 'Se eliminó con éxito el registro',
+            icon: 'success',
+          });
+        });
       } else {
         Swal.fire({
-          title: 'stocks',
+          title: 'Stocks',
           text: 'El usuario canceló la acción',
           icon: 'info',
         });
       }
     });
   }
-  }
+}

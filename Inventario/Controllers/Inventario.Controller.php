@@ -10,7 +10,7 @@ if ($method == "OPTIONS") {
 }
 
 require_once('../Models/Stock.model.php');
-$stocks = new Clase_Stock;
+$stocks = new Clase_Inventario;
 switch ($_GET["op"]) {
     case 'todos':
         $datos = array(); //defino un arreglo
