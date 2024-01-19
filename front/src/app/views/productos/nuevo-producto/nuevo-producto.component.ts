@@ -73,7 +73,7 @@ export class NuevoProductoComponent {
                 text: 'Se insertó con éxito el registro',
                 icon: 'success',
               });
-              this.rutas.navigate(['/productos']);
+              this.rutas.navigate(['/dashboard/productos']);
               this.id = 0;
             });
         } else {
@@ -85,7 +85,7 @@ export class NuevoProductoComponent {
                 text: 'Se actualizó con éxito el registro',
                 icon: 'success',
               });
-              this.rutas.navigate(['/productos']);
+              this.rutas.navigate(['/dashboard/productos']);
               this.id = 0;
             });
         }

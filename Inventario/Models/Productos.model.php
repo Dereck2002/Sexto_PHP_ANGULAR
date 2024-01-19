@@ -35,7 +35,7 @@ class Clase_Productos
         try {
             $con = new Clase_Conectar_Base_Datos();
             $con = $con->ProcedimientoConectar();
-            $cadena = "INSERT INTO `Productos`( `Nombre`, `Precio`, `Cantidad`, `FechaIngreso`) VALUES ('$Nombre','$Precio','$Cantidad',NOW())";
+            $cadena = "INSERT INTO `Productos`( `Nombre`, `Precio`, `Cantidad`, `FechaIngreso`) VALUES ('$Nombre','$Precio',$Cantidad,CURDATE())";
 
             $result = mysqli_query($con, $cadena);
 
@@ -51,7 +51,7 @@ class Clase_Productos
         try {
             $con = new Clase_Conectar_Base_Datos();
             $con = $con->ProcedimientoConectar();
-            $cadena = "UPDATE `Productos` SET `Nombre`='$Nombre',`Precio`='$Precio',`Cantidad`='$Cantidad' WHERE `ProductoId`=$ProductoId";
+            $cadena = "UPDATE `Productos` SET `Nombre`='$Nombre',`Precio`='$Precio',`Cantidad`='$Cantidad',`FechaIngreso`='GETDATE()' WHERE `ProductoId`=$ProductoId";
             $result = mysqli_query($con, $cadena);
             return "ok";
         } catch (Throwable $th) {

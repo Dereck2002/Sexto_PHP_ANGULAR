@@ -2,64 +2,76 @@
   <div class="card-header py-3">
     <h6 class="m-0 font-weight-bold text-primary">{{ title }}</h6>
   </div>
+  <!--form-->
   <div class="card-body">
-    <form [formGroup]="provedor" (ngSubmit)="grabar()">
+    <form [formGroup]="stock" (ngSubmit)="grabar()">
       <div class="mb-2">
-        <label for="ProductoId">ProductoId</label>
-        <input type="text" class="form-control" formControlName="ProductoId" />
-        @if (provedor.invalid && (provedor.dirty || provedor.touched)) {
-        <div class="alert">
-          @if (provedor.errors?.["required"]) {
-          <div class="ng-invalid">ProductoId es requerido</div>
+        <label for="ProductoId">Producto</label>
+        <select class="form-control" formControlName="ProductoId">
+          <option value="0">Seleccione una opción</option>
+          @for (producto of ListaProducto; track producto.ProductoId) {
+          <option [value]="producto.ProductoId">{{ producto.Nombre }}</option>
           }
-        </div>
-        }
-      </div>
-      <div class="mb-2">
-        <label for="ProveedorId">ProveedorId</label>
-        <input type="text" class="form-control" formControlName="ProveedorId" />
-        @if (provedor.invalid && (provedor.dirty || provedor.touched)) {
-        <div class="alert">
-          @if (provedor.errors?.["required"]) {
-          <div class="ng-invalid">El ProveedorId es requerido</div>
-          }
-        </div>
-        }
-      </div>
-      <div class="mb-2">
-        <label for="Cantidad">Cantidad</label>
-        <input type="text" class="form-control" formControlName="Cantidad" />
-        @if (provedor.invalid && (provedor.dirty || provedor.touched)) {
-        <div class="alert">
-          @if (provedor.errors?.["required"]) {
-          <div class="ng-invalid">la cantidad es requerido</div>
-          }
-        </div>
-        }
-      </div>
-      <div class="mb-2">
-        <label for="Precio_Venta">Precio_Venta</label>
-        <input type="text" class="form-control" formControlName="Precio_Venta" />
-        @if (provedor.invalid && (provedor.dirty || provedor.touched)) {
-        <div class="alert">
-          @if (provedor.errors?.["required"]) {
-          <div class="ng-invalid">El precio venta es requerido</div>
-          }
-        </div>
-        }
-      </div>
+        </select>
 
+        @if (stock.invalid && (stock.dirty || stock.touched)) {
+        <div class="alert alert-danger">
+          @if (stock.errors?.["required"]) {
+          <div class="bg-primary">Id Producto es requerido</div>
+          }
+        </div>
+        }
+      </div>
       <div class="mb-2">
-        <button
-          type="submit"
-          class="btn btn-primary"
-          [disabled]="!provedor.valid"
-        >
+        <label for="ProveedorId">Proveedor</label>
+        <select class="form-control" formControlName="ProveedorId">
+          <option value="0">Seleccione una opción</option>
+          @for (proveedor of ListaProveedores; track proveedor.ProveedorId) {
+          <option [value]="proveedor.ProveedorId">
+            {{ proveedor.Nombres }}
+          </option>
+          }
+        </select>
+
+        @if (stock.invalid && (stock.dirty || stock.touched)) {
+        <div class="alert">
+          @if (stock.errors?.["required"]) {
+          <div class="ng-invalid">Id Proovedor es requerido</div>
+          }
+        </div>
+        }
+      </div>
+      <div class="mb-2">
+        <label for="Cantidad"> Cantidad </label>
+        <input type="text" class="form-control" formControlName="Cantidad" />
+        @if (stock.invalid && (stock.dirty || stock.touched)) {
+        <div class="alert">
+          @if (stock.errors?.["required"]) {
+          <div class="ng-invalid">Cantidad es requerido</div>
+          }
+        </div>
+        }
+      </div>
+      <div class="mb-2">
+        <label for="Precio_Venta"> Precio_Venta </label>
+        <input
+          type="text"
+          class="form-control"
+          formControlName="Precio_Venta"
+        />
+        @if (stock.invalid && (stock.dirty || stock.touched)) {
+        <div class="alert">
+          @if (stock.errors?.["required"]) {
+          <div class="ng-invalid">Precio de Venta es requerido</div>
+          }
+        </div>
+        }
+      </div>
+      <div class="mb-2">
+        <button type="submit" class="btn btn-primary" [disabled]="!stock.valid">
           Grabar
         </button>
-        <button class="btn btn-secondary" routerLink="/stocks">
-          Cancelar
-        </button>
+        <button class="btn btn-secondary" routerLink="/dashboard/stocks">Cancelar</button>
       </div>
     </form>
   </div>

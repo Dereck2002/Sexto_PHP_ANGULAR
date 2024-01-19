@@ -67,7 +67,7 @@
         </form>
       </div>
     </li>
-
+    @if (rol =="Admin") {
     <!-- Nav Item - Alerts -->
     <li class="nav-item dropdown no-arrow mx-1">
       <a
@@ -228,7 +228,6 @@
 
     <div class="topbar-divider d-none d-sm-block"></div>
 
-    <!-- Nav Item - User Information -->
     <li class="nav-item dropdown no-arrow">
       <a
         class="nav-link dropdown-toggle"
@@ -265,6 +264,7 @@
         <a
           class="dropdown-item"
           routerLink="/login"
+          (click)="salir()"
           routerLinkActive="active"
           ariaCurrentWhenActive="page"
         >
@@ -273,6 +273,8 @@
         </a>
       </div>
     </li>
+    }
+    <!-- Nav Item - User Information -->
   </ul>
 </nav>
 

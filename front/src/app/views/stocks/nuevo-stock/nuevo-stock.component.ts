@@ -1,48 +1,56 @@
-import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import {
-  FormControl,
   FormGroup,
-  ReactiveFormsModule,
+  FormControl,
   Validators,
+  ReactiveFormsModule,
 } from '@angular/forms';
-import { StockService } from '../../../Services/stock.service';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { Router, ActivatedRoute, RouterLink } from '@angular/router';
 import Swal from 'sweetalert2';
+import { StockService } from '../../../Services/stock.service';
+import { CommonModule } from '@angular/common';
+import { IProducto } from '../../../Interfaces/iproducto';
+import { ProductosService } from '../../../Services/productos.service';
+import { ProveedorService } from '../../../Services/proveedor.service';
+import { IProveedor } from '../../../Interfaces/iproveedor';
+
 @Component({
   selector: 'app-nuevo-stock',
   standalone: true,
   imports: [ReactiveFormsModule, CommonModule, RouterLink],
   templateUrl: './nuevo-stock.component.html',
-  styleUrl: './nuevo-stock.component.css'
+  styleUrl: './nuevo-stock.component.css',
 })
 export class NuevoStockComponent {
-  title = '';
+  title = 'Nuevo Stock';
   id!: number;
 
-  provedor: FormGroup = new FormGroup({
+  ListaProducto: IProducto[];
+  ListaProveedores: IProveedor[];
+  stock: FormGroup = new FormGroup({
     ProductoId: new FormControl('', Validators.required),
     ProveedorId: new FormControl('', Validators.required),
     Cantidad: new FormControl('', Validators.required),
     Precio_Venta: new FormControl('', Validators.required),
-    
   });
   constructor(
-    private stocksServicio: StockService,
+    private stockServicio: StockService,
     private rutas: Router,
-    private parametros: ActivatedRoute
+    private parametros: ActivatedRoute,
+    private productoServicio: ProductosService,
+    private proveedorServicio: ProveedorService
   ) {}
-
-  ngOnInit() {
+  async ngOnInit() {
     this.id = this.parametros.snapshot.params['id'];
-    console.log(this.id);
+    await this.cargaProducto();
+    await this.cargaProveedor();
     if (this.id == 0 || this.id == undefined) {
-      this.title = 'Nuevo stock';
+      this.title = 'Nuevo Stock';
     } else {
-      this.title = 'Actualizar stock';
-      this.stocksServicio.uno(this.id).subscribe((res) => {
+      this.title = 'Actualizar Stock';
+      this.stockServicio.uno(this.id).subscribe((res) => {
         console.log(res);
-        this.provedor.patchValue({
+        this.stock.patchValue({
           ProductoId: res.ProductoId,
           ProveedorId: res.ProveedorId,
           Cantidad: res.Cantidad,
@@ -51,13 +59,23 @@ export class NuevoStockComponent {
       });
     }
   }
-  get f() {
-    return this.provedor.controls;
+  cargaProveedor() {
+    this.proveedorServicio.todos().subscribe((res) => {
+      this.ListaProveedores = res;
+    });
+  }
+  cargaProducto() {
+    this.productoServicio.todos().subscribe((res) => {
+      this.ListaProducto = res;
+    });
   }
 
+  get f() {
+    return this.stock.controls;
+  }
   grabar() {
     Swal.fire({
-      title: 'stocks',
+      title: 'Productos',
       text: 'Esta seguro que desea guardar el registro',
       icon: 'warning',
       showCancelButton: true,
@@ -67,33 +85,31 @@ export class NuevoStockComponent {
     }).then((result) => {
       if (result.isConfirmed) {
         if (this.id == 0 || this.id == undefined) {
-          this.stocksServicio
-            .insertar(this.provedor.value)
-            .subscribe((res) => {
-              Swal.fire({
-                title: 'stocks',
-                text: 'Se insertó con éxito el registro',
-                icon: 'success',
-              });
-              this.rutas.navigate(['/stocks']);
-              this.id = 0;
+          this.stockServicio.insertar(this.stock.value).subscribe((res) => {
+            Swal.fire({
+              title: 'Productos',
+              text: 'Se insertó con éxito el registro',
+              icon: 'success',
             });
+            this.rutas.navigate(['/dashboard/stocks']);
+            this.id = 0;
+          });
         } else {
-          this.stocksServicio
-            .actualizar(this.provedor.value, this.id)
+          this.stockServicio
+            .actualizar(this.stock.value, this.id)
             .subscribe((res) => {
               Swal.fire({
-                title: 'stocks',
+                title: 'Productos',
                 text: 'Se actualizó con éxito el registro',
                 icon: 'success',
               });
-              this.rutas.navigate(['/stocks']);
+              this.rutas.navigate(['/dashboard/stocks']);
               this.id = 0;
             });
         }
       } else {
         Swal.fire({
-          title: 'stocks',
+          title: 'Productos',
           text: 'El usuario canceló la acción',
           icon: 'info',
         });

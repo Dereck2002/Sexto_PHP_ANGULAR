@@ -46,13 +46,14 @@
       aria-labelledby="headingTwo"
       data-parent="#accordionSidebar"
     >
+      @if (rol=="Admin") {
       <div class="bg-white py-2 collapse-inner rounded">
         <h6 class="collapse-header">Inventario</h6>
-        <a class="collapse-item" routerLink="/productos">Productos</a>
-        <a class="collapse-item" routerLink="/proveedores">Proveedores</a>
-        <a class="collapse-item" routerLink="/stocks">Stocks</a>
-        <a href="">Etiqueta Normal de html</a>
+        <a class="collapse-item" routerLink="/dashboard/productos">Productos</a>
+        <a class="collapse-item" routerLink="/dashboard//proveedores">Proveedores</a>
+        <a class="collapse-item" routerLink="/dashboard//stocks">Stocks</a>
       </div>
+      }
     </div>
   </li>
 

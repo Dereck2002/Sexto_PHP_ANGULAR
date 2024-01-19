@@ -2,13 +2,13 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { IProveedor } from '../Interfaces/iproveedor';
+import { environment } from '../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProveedorService {
-  private urlBase: string =
-    'http://localhost/Sexto_PHP_ANGULAR/Inventario/Controllers/Proveedor.Controller.php?op=';
+  private urlBase: string = environment.URL + 'Proveedor.Controller.php?op=';
   constructor(private clientePhp: HttpClient) {}
   todos(): Observable<IProveedor[]> {
     return this.clientePhp.get<IProveedor[]>(this.urlBase + 'todos');
@@ -27,7 +27,7 @@ export class ProveedorService {
   }
   uno(id: number): Observable<IProveedor> {
     var prov = new FormData();
-    prov.append('proveedorId', id.toString());
+    prov.append('ProveedorId', id.toString());
     return this.clientePhp.post<IProveedor>(this.urlBase + 'uno', prov);
   }
   actualizar(proveedor: IProveedor, id: number): Observable<any> {

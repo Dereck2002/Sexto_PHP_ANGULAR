@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
+import Swal from 'sweetalert2';
 import { IStock } from '../../Interfaces/istock';
 import { StockService } from '../../Services/stock.service';
 import { RouterLink } from '@angular/router';
-import Swal from 'sweetalert2';
+
 @Component({
   selector: 'app-stocks',
   standalone: true,
@@ -10,7 +11,7 @@ import Swal from 'sweetalert2';
   templateUrl: './stocks.component.html',
   styleUrl: './stocks.component.css',
 })
-export class StockComponent {
+export class StocksComponent {
   title = 'Stocks';
   stocks: IStock[];
 
@@ -26,7 +27,7 @@ export class StockComponent {
     });
   }
   alerta() {
-    Swal.fire('Stocks', 'Mensaje en stocks', 'success');
+    Swal.fire('Stocks', 'Mensaje en Stocks', 'success');
   }
 
   eliminar(StockId: number) {

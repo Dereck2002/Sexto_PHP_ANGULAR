@@ -76,7 +76,7 @@ export class NuevoProveedorComponent {
                 text: 'Se insertó con éxito el registro',
                 icon: 'success',
               });
-              this.rutas.navigate(['/proveedores']);
+              this.rutas.navigate(['/dashboard/proveedores']);
               this.id = 0;
             });
         } else {
@@ -88,7 +88,7 @@ export class NuevoProveedorComponent {
                 text: 'Se actualizó con éxito el registro',
                 icon: 'success',
               });
-              this.rutas.navigate(['/proveedores']);
+              this.rutas.navigate(['/dashboard/proveedores']);
               this.id = 0;
             });
         }

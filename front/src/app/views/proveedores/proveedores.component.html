@@ -2,7 +2,7 @@
   <div class="card-header py-3">
     <h6 class="m-0 font-weight-bold text-primary">{{ title }}</h6>
     <hr />
-    <button class="btn btn-primary" routerLink="/nuevo-proveedor">Nuevo</button>
+    <button class="btn btn-primary" routerLink="/dashboard/nuevo-proveedor">Nuevo</button>
   </div>
   <div class="card-body">
     <div class="table-responsive">
@@ -33,7 +33,7 @@
               <button
                 type="button"
                 class="btn btn-outline-warning"
-                routerLink="/editar-proveedor/{{ proveedor.ProveedorId }}"
+                routerLink="/dashboard/editar-proveedor/{{ proveedor.ProveedorId }}"
               >
                 Editar
               </button>
