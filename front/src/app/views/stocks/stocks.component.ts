@@ -30,7 +30,7 @@ export class StocksComponent {
     Swal.fire('Stocks', 'Mensaje en Stocks', 'success');
   }
 
-  eliminar(StockId: number) {
+  eliminar(ID_producto: number) {
     Swal.fire({
       title: 'Stocks',
       text: 'Esta seguro que desea eliminar el registro',
@@ -41,7 +41,7 @@ export class StocksComponent {
       confirmButtonText: 'Eliminar',
     }).then((result) => {
       if (result.isConfirmed) {
-        this.stocksServicio.eliminar(StockId).subscribe((datos) => {
+        this.stocksServicio.eliminar(ID_producto).subscribe((datos) => {
           this.cargaTabla();
           Swal.fire({
             title: 'Stocks',
