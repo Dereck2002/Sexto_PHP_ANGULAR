@@ -21,32 +21,32 @@ switch ($_GET["op"]) {
         echo json_encode($todos); //devuelvo el arreglo en formato json
         break;
     case "uno":
-        $ProveedorId = $_POST["ProveedorId"]; //defino una variable para almacenar el id del usuario, la variable se obtiene mediante POST
+        $ID_proveedor = $_POST["ID_proveedor"]; //defino una variable para almacenar el id del usuario, la variable se obtiene mediante POST
         $datos = array(); //defino un arreglo
-        $datos = $proveedor->uno($ProveedorId); //llamo al modelo de usuarios e invoco al procedimiento uno y almaceno en una variable
+        $datos = $proveedor->uno($ID_proveedor); //llamo al modelo de usuarios e invoco al procedimiento uno y almaceno en una variable
         $uno = mysqli_fetch_assoc($datos); //recorro el arreglo de datos
         echo json_encode($uno); //devuelvo el arreglo en formato json
         break;
     case 'insertar':
-        $Nombre = $_POST["Nombres"];
-        $telefono = $_POST["Telefono"];
-        $correo = $_POST["Correo"];
+        $Nombre = $_POST["Nombre"];
+        $Producto_suministrado = $_POST["Producto_suministrado"];
+        $Fecha_inicio_contrato = $_POST["Fecha_inicio_contrato"];
         $datos = array(); //defino un arreglo
-        $datos = $proveedor->insertar($Nombre, $telefono, $correo); //llamo al modelo de usuarios e invoco al procedimiento insertar
+        $datos = $proveedor->insertar($Nombre, $telefono, $Fecha_inicio_contrato); //llamo al modelo de usuarios e invoco al procedimiento insertar
         echo json_encode($datos); //devuelvo el arreglo en formato json
         break;
     case 'actualizar':
-        $ProveedorId = $_POST["proveedorId"];
-        $Nombre = $_POST["Nombres"];
-        $telefono = $_POST["Telefono"];
-        $correo = $_POST["Correo"];
+        $ID_proveedor = $_POST["ID_proveedor"];
+        $Nombre = $_POST["Nombre"];
+        $Producto_suministrado = $_POST["Producto_suministrado"];
+        $Fecha_inicio_contrato = $_POST["Fecha_inicio_contrato"];
         $datos = array(); //defino un arreglo
-        $datos = $proveedor->actualizar($ProveedorId, $Nombre, $telefono, $correo); //llamo al modelo de usuarios e invoco al procedimiento actual
+        $datos = $proveedor->actualizar($ID_proveedor, $Nombre, $Producto_suministrado, $Fecha_inicio_contrato); //llamo al modelo de usuarios e invoco al procedimiento actual
         echo json_encode($datos); //devuelvo el arreglo en formato json
         break;
 
     case 'eliminar':
-        $ProductoId = $_POST["proveedorId"]; //defino una variable para almacenar el id del usuario, la variable se obtiene mediante POST
+        $ProductoId = $_POST["ID_proveedor"]; //defino una variable para almacenar el id del usuario, la variable se obtiene mediante POST
         $datos = array(); //defino un arreglo
         $datos = $proveedor->eliminar($ProductoId); //llamo al modelo de usuarios e invoco al procedimiento uno y almaceno en una variable
         echo json_encode($datos); //devuelvo el arreglo en formato json

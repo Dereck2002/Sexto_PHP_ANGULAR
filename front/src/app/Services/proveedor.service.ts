@@ -15,9 +15,9 @@ export class ProveedorService {
   }
   insertar(proveedor: IProveedor): Observable<any> {
     var prov = new FormData();
-    prov.append('Nombres', proveedor.Nombres);
-    prov.append('Telefono', proveedor.Telefono);
-    prov.append('Correo', proveedor.Correo);
+    prov.append('Nombre', proveedor.Nombre);
+    prov.append('Producto_suministrado', proveedor.Producto_suministrado);
+    prov.append('Fecha_inicio_contrato', proveedor.Fecha_inicio_contrato);
     return this.clientePhp.post(this.urlBase + 'insertar', prov);
   }
   eliminar(id: number): Observable<any> {
@@ -33,9 +33,9 @@ export class ProveedorService {
   actualizar(proveedor: IProveedor, id: number): Observable<any> {
     var prov = new FormData();
     prov.append('proveedorId', id.toString());
-    prov.append('Nombres', proveedor.Nombres);
-    prov.append('Telefono', proveedor.Telefono);
-    prov.append('Correo', proveedor.Correo);
+    prov.append('Nombre', proveedor.Nombre);
+    prov.append('Producto_suministrado', proveedor.Producto_suministrado);
+    prov.append('Fecha_inicio_contrato', proveedor.Fecha_inicio_contrato);
     return this.clientePhp.post(this.urlBase + 'actualizar', prov);
   }
 }

@@ -1,9 +1,7 @@
 export interface IStock {
-  StockId: number;
-  ProductoId: number;
-  ProveedorId: number;
-  Cantidad: number;
-  Precio_Venta: number;
-  producto: string;
-  proveedor: string;
+  ID_producto: number;
+    ID_proveedor: number;
+    Nombre_producto: string;
+    Cantidad: number;
+    Precio_unitario: number;
 }

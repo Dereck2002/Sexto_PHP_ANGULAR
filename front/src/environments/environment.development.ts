@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  URL: 'http://localhost/Sexto_PHP_ANGULAR/Inventario/Controllers/',
+  URL: 'http://localhost/Examen_Segunda_Parcial/Inventario/Controllers/',
   rol: '',
 };

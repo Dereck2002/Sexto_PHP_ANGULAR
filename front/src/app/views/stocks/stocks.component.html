@@ -15,33 +15,33 @@
         <thead>
           <tr>
             <th>#</th>
-            <th>Producto</th>
             <th>Proveedor</th>
+            <th>Nombre producto</th>
             <th>Cantidad</th>
-            <th>Precio_Venta</th>
+            <th>Precio unitario</th>
             <th></th>
           </tr>
         </thead>
         <tbody>
-          @for (stock of stocks; track stock.StockId; let i = $index) {
+          @for (stock of stocks; track stock.ID_producto; let i = $index) {
           <tr>
             <td>{{ i + 1 }}</td>
-            <td>{{ stock.producto }}</td>
-            <td>{{ stock.proveedor }}</td>
+            <td>{{ stock.ID_proveedor }}</td>
+            <td>{{ stock.Nombre_producto }}</td>
             <td>{{ stock.Cantidad }}</td>
-            <td>{{ stock.Precio_Venta }}</td>
+            <td>{{ stock.Precio_unitario }}</td>
             <td>
               <button
                 type="button"
                 class="btn btn-outline-warning"
-                routerLink="/editar-stock/{{ stock.StockId }}"
+                routerLink="/dashboard/editar-stock/{{ stock.ID_producto }}"
               >
                 Editar
               </button>
               <button
                 type="button"
                 class="btn btn-outline-danger"
-                (click)="eliminar(stock.StockId)"
+                (click)="eliminar(stock.ID_producto)"
               >
                 Eliminar
               </button>

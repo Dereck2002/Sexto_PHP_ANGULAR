@@ -16,12 +16,12 @@ class Clase_Proveedor
             $con->close();
         }
     }
-    public function uno($ProveedorId)
+    public function uno($ID_proveedor)
     {
         try {
             $con = new Clase_Conectar_Base_Datos();
             $con = $con->ProcedimientoConectar();
-            $cadena = "SELECT * FROM `Proveedores` WHERE ProveedorId=$ProveedorId";
+            $cadena = "SELECT * FROM `Proveedores` WHERE ID_proveedor=$ID_proveedor";
 
             $result = mysqli_query($con, $cadena);
             return $result;
@@ -31,12 +31,12 @@ class Clase_Proveedor
             $con->close();
         }
     }
-    public function insertar($Nombre, $Telefono, $Correo)
+    public function insertar($Nombre, $Producto_suministrado, $Fecha_inicio_contrato)
     {
         try {
             $con = new Clase_Conectar_Base_Datos();
             $con = $con->ProcedimientoConectar();
-            $cadena = "INSERT INTO `Proveedores`( `Nombres`, `Telefono`, `Correo`) VALUES ('$Nombre','$Telefono','$Correo')";
+            $cadena = "INSERT INTO `Proveedores`( `Nombre`, `Producto_suministrado`, `Fecha_inicio_contrato`) VALUES ('$Nombre','$Producto_suministrado','$Fecha_inicio_contrato')";
 
             $result = mysqli_query($con, $cadena);
             return 'ok';
@@ -46,12 +46,12 @@ class Clase_Proveedor
             $con->close();
         }
     }
-    public function actualizar($ProveedorId, $Nombre, $Telefono, $Correo)
+    public function actualizar($ID_proveedor, $Nombre, $Producto_suministrado, $Fecha_inicio_contrato)
     {
         try {
             $con = new Clase_Conectar_Base_Datos();
             $con = $con->ProcedimientoConectar();
-            $cadena = "UPDATE `Proveedores` SET `Nombres`='$Nombre',`Telefono`='$Telefono',`Correo`='$Correo' WHERE `ProveedorId`=$ProveedorId";
+            $cadena = "UPDATE `Proveedores` SET `Nombre`='$Nombre',`Producto_suministrado`='$Producto_suministrado',`Fecha_inicio_contrato`='$Fecha_inicio_contrato' WHERE `ID_proveedor`=$ID_proveedor";
             $result = mysqli_query($con, $cadena);
             return "ok";
         } catch (Throwable $th) {
@@ -75,13 +75,3 @@ class Clase_Proveedor
         }
     }
 }
-/*
-
-"SELECT * FROM `Proveedor` WHERE ProveedorId=4<br />
-<b>Fatal error</b>:  Uncaught TypeError: mysqli_fetch_assoc(): Argument #1 ($result) must be of type mysqli_result, string given in /Applications/MAMP/htdocs/Sexto_PHP_ANGULAR/Inventario/Controllers/Proveedor.Controller.php:27
-Stack trace:
-#0 /Applications/MAMP/htdocs/Sexto_PHP_ANGULAR/Inventario/Controllers/Proveedor.Controller.php(27): mysqli_fetch_assoc('Table 'inventar...')
-#1 {main}
-  thrown in <b>/Applications/MAMP/htdocs/Sexto_PHP_ANGULAR/Inventario/Controllers/Proveedor.Controller.php</b> on line <b>27</b><br />
-"
-*/

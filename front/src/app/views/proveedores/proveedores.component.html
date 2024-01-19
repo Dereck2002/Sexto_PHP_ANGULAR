@@ -16,31 +16,31 @@
           <tr>
             <th>#</th>
             <th>Nombres</th>
-            <th>Telefono</th>
-            <th>Correo</th>
+            <th>Producto_suministrado</th>
+            <th>Fecha_inicio_contrato</th>
             <th></th>
           </tr>
         </thead>
         <tbody>
-          @for (proveedor of proveedores; track proveedor.ProveedorId; let i =
+          @for (proveedor of proveedores; track proveedor.ID_proveedor; let i =
           $index) {
           <tr>
             <td>{{ i + 1 }}</td>
-            <td>{{ proveedor.Nombres }}</td>
-            <td>{{ proveedor.Telefono }}</td>
-            <td>{{ proveedor.Correo }}</td>
+            <td>{{ proveedor.Nombre }}</td>
+            <td>{{ proveedor.Producto_suministrado }}</td>
+            <td>{{ proveedor.Fecha_inicio_contrato }}</td>
             <td>
               <button
                 type="button"
                 class="btn btn-outline-warning"
-                routerLink="/dashboard/editar-proveedor/{{ proveedor.ProveedorId }}"
+                routerLink="/dashboard/editar-proveedor/{{ proveedor.ID_proveedor }}"
               >
                 Editar
               </button>
               <button
                 type="button"
                 class="btn btn-outline-danger"
-                (click)="eliminar(proveedor.ProveedorId)"
+                (click)="eliminar(proveedor.ID_proveedor)"
               >
                 Eliminar
               </button>

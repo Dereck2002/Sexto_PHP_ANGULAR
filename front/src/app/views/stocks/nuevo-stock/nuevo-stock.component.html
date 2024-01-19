@@ -6,39 +6,21 @@
   <div class="card-body">
     <form [formGroup]="stock" (ngSubmit)="grabar()">
       <div class="mb-2">
-        <label for="ProductoId">Producto</label>
-        <select class="form-control" formControlName="ProductoId">
+        <label for="ID_proveedor">Proveedor</label>
+        <select class="form-control" formControlName="ID_proveedor">
           <option value="0">Seleccione una opción</option>
-          @for (producto of ListaProducto; track producto.ProductoId) {
-          <option [value]="producto.ProductoId">{{ producto.Nombre }}</option>
+          @for (proveedor of ListaProveedores; track proveedor.ID_proveedor) {
+          <option [value]="proveedor.ID_proveedor">{{ proveedor.Nombre }}</option>
           }
         </select>
 
         @if (stock.invalid && (stock.dirty || stock.touched)) {
         <div class="alert alert-danger">
           @if (stock.errors?.["required"]) {
-          <div class="bg-primary">Id Producto es requerido</div>
+          <div class="bg-primary">Id proveedor es requerido</div>
           }
         </div>
-        }
-      </div>
-      <div class="mb-2">
-        <label for="ProveedorId">Proveedor</label>
-        <select class="form-control" formControlName="ProveedorId">
-          <option value="0">Seleccione una opción</option>
-          @for (proveedor of ListaProveedores; track proveedor.ProveedorId) {
-          <option [value]="proveedor.ProveedorId">
-            {{ proveedor.Nombres }}
-          </option>
-          }
-        </select>
-
-        @if (stock.invalid && (stock.dirty || stock.touched)) {
-        <div class="alert">
-          @if (stock.errors?.["required"]) {
-          <div class="ng-invalid">Id Proovedor es requerido</div>
-          }
-        </div>
+        
         }
       </div>
       <div class="mb-2">

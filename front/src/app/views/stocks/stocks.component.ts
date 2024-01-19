@@ -1,61 +1,103 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { StockService } from '../../../Services/stock.service';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import Swal from 'sweetalert2';
-import { IStock } from '../../Interfaces/istock';
-import { StockService } from '../../Services/stock.service';
-import { RouterLink } from '@angular/router';
-
 @Component({
-  selector: 'app-stocks',
+  selector: 'app-nuevo-stock',
   standalone: true,
-  imports: [RouterLink],
-  templateUrl: './stocks.component.html',
-  styleUrl: './stocks.component.css',
+  imports: [ReactiveFormsModule, CommonModule, RouterLink],
+  templateUrl: './nuevo-stock.component.html',
+  styleUrl: './nuevo-stock.component.css'
 })
-export class StocksComponent {
-  title = 'Stocks';
-  stocks: IStock[];
+export class StockComponent{
+  title = '';
+  id!: number;
 
-  constructor(private stocksServicio: StockService) {}
+  provedor: FormGroup = new FormGroup({
+    ProductoId: new FormControl('', Validators.required),
+    ProveedorId: new FormControl('', Validators.required),
+    Cantidad: new FormControl('', Validators.required),
+    Precio_Venta: new FormControl('', Validators.required),
+    
+  });
+  constructor(
+    private stocksServicio: StockService,
+    private rutas: Router,
+    private parametros: ActivatedRoute
+  ) {}
 
   ngOnInit() {
-    this.cargaTabla();
+    this.id = this.parametros.snapshot.params['id'];
+    console.log(this.id);
+    if (this.id == 0 || this.id == undefined) {
+      this.title = 'Nuevo stock';
+    } else {
+      this.title = 'Actualizar stock';
+      this.stockServicio.uno(this.id).subscribe((res) => {
+        console.log(res);
+        this.provedor.patchValue({
+          ProductoId: res.ProductoId,
+          ProveedorId: res.ProveedorId,
+          Cantidad: res.Cantidad,
+          Precio_Venta: res.Precio_Venta,
+        });
+      });
+    }
   }
-  cargaTabla() {
-    this.stocksServicio.todos().subscribe((listastocks) => {
-      this.stocks = listastocks;
-      console.log(listastocks);
-    });
-  }
-  alerta() {
-    Swal.fire('Stocks', 'Mensaje en Stocks', 'success');
+  get f() {
+    return this.provedor.controls;
   }
 
-  eliminar(StockId: number) {
+  grabar() {
     Swal.fire({
-      title: 'Stocks',
-      text: 'Esta seguro que desea eliminar el registro',
+      title: 'stocks',
+      text: 'Esta seguro que desea guardar el registro',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#d33',
       cancelButtonColor: '#3085d6',
-      confirmButtonText: 'Eliminar',
+      confirmButtonText: 'Guardar',
     }).then((result) => {
       if (result.isConfirmed) {
-        this.stocksServicio.eliminar(StockId).subscribe((datos) => {
-          this.cargaTabla();
-          Swal.fire({
-            title: 'Stocks',
-            text: 'Se eliminó con éxito el registro',
-            icon: 'success',
-          });
-        });
+        if (this.id == 0 || this.id == undefined) {
+          this.stocksServicio
+            .insertar(this.provedor.value)
+            .subscribe((res) => {
+              Swal.fire({
+                title: 'stocks',
+                text: 'Se insertó con éxito el registro',
+                icon: 'success',
+              });
+              this.rutas.navigate(['/stocks']);
+              this.id = 0;
+            });
+        } else {
+          this.stocksServicio
+            .actualizar(this.provedor.value, this.id)
+            .subscribe((res) => {
+              Swal.fire({
+                title: 'stocks',
+                text: 'Se actualizó con éxito el registro',
+                icon: 'success',
+              });
+              this.rutas.navigate(['/stocks']);
+              this.id = 0;
+            });
+        }
       } else {
         Swal.fire({
-          title: 'Stocks',
+          title: 'stocks',
           text: 'El usuario canceló la acción',
           icon: 'info',
         });
       }
     });
   }
-}
+  }

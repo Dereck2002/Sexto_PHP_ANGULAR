@@ -1,6 +1,6 @@
 export interface IProveedor {
-  ProveedorId: number;
-  Nombres: string;
-  Telefono: string;
-  Correo: string;
+  ID_proveedor: number;
+  Nombre: string;
+  Producto_suministrado: string;
+  Fecha_inicio_contrato: string;
 }

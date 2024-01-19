@@ -21,13 +21,9 @@ export class NuevoProveedorComponent {
   id!: number;
 
   provedor: FormGroup = new FormGroup({
-    Nombres: new FormControl('', Validators.required),
-    Telefono: new FormControl('', [
-      Validators.required,
-      Validators.maxLength(17),
-      Validators.minLength(7),
-    ]),
-    Correo: new FormControl('', [Validators.required, Validators.email]),
+    Nombre: new FormControl('', Validators.required),
+    Producto_suministrado: new FormControl('', Validators.required),
+    Fecha_inicio_contrato: new FormControl('', Validators.required),
   });
   constructor(
     private proveedorServicio: ProveedorService,
@@ -45,9 +41,9 @@ export class NuevoProveedorComponent {
       this.proveedorServicio.uno(this.id).subscribe((res) => {
         console.log(res);
         this.provedor.patchValue({
-          Nombres: res.Nombres,
-          Telefono: res.Telefono,
-          Correo: res.Correo,
+          Nombre: res.Nombre,
+          Producto_suministrado: res.Producto_suministrado,
+          Fecha_inicio_contrato: res.Fecha_inicio_contrato,
         });
       });
     }

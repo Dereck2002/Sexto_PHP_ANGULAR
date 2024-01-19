@@ -9,8 +9,6 @@ import { Router, ActivatedRoute, RouterLink } from '@angular/router';
 import Swal from 'sweetalert2';
 import { StockService } from '../../../Services/stock.service';
 import { CommonModule } from '@angular/common';
-import { IProducto } from '../../../Interfaces/iproducto';
-import { ProductosService } from '../../../Services/productos.service';
 import { ProveedorService } from '../../../Services/proveedor.service';
 import { IProveedor } from '../../../Interfaces/iproveedor';
 
@@ -25,24 +23,22 @@ export class NuevoStockComponent {
   title = 'Nuevo Stock';
   id!: number;
 
-  ListaProducto: IProducto[];
+
   ListaProveedores: IProveedor[];
   stock: FormGroup = new FormGroup({
-    ProductoId: new FormControl('', Validators.required),
-    ProveedorId: new FormControl('', Validators.required),
+    ID_proveedor: new FormControl('', Validators.required),
+    Nombre_producto: new FormControl('', Validators.required),
     Cantidad: new FormControl('', Validators.required),
-    Precio_Venta: new FormControl('', Validators.required),
+    Precio_unitario: new FormControl('', Validators.required),
   });
   constructor(
     private stockServicio: StockService,
     private rutas: Router,
     private parametros: ActivatedRoute,
-    private productoServicio: ProductosService,
     private proveedorServicio: ProveedorService
   ) {}
   async ngOnInit() {
     this.id = this.parametros.snapshot.params['id'];
-    await this.cargaProducto();
     await this.cargaProveedor();
     if (this.id == 0 || this.id == undefined) {
       this.title = 'Nuevo Stock';
@@ -51,26 +47,22 @@ export class NuevoStockComponent {
       this.stockServicio.uno(this.id).subscribe((res) => {
         console.log(res);
         this.stock.patchValue({
-          ProductoId: res.ProductoId,
-          ProveedorId: res.ProveedorId,
+          ID_proveedor: res.ID_proveedor,
+          Nombre_producto: res.Nombre_producto,
           Cantidad: res.Cantidad,
-          Precio_Venta: res.Precio_Venta,
+          Precio_unitario: res.Precio_unitario,
         });
       });
     }
   }
+  
   cargaProveedor() {
     this.proveedorServicio.todos().subscribe((res) => {
       this.ListaProveedores = res;
-    });
-  }
-  cargaProducto() {
-    this.productoServicio.todos().subscribe((res) => {
-      this.ListaProducto = res;
-    });
-  }
 
-  get f() {
+    });
+  
+
     return this.stock.controls;
   }
   grabar() {
